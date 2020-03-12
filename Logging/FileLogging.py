@@ -18,9 +18,9 @@ def load_recent():
     for i in range(1):
         for j in range(9):
             if i==0:
-                textFiles = logFile.read([j])
+                textFiles = logFile.read([j]) #add return for final version
             else:
-                videoFiles = logFile.read([j])
+                videoFiles = logFile.read([j]) #add return for final version
 
     #Print out arrays for testing, delete before implementing final code
 
