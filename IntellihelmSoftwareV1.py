@@ -37,19 +37,16 @@ def txt_file_function():
             txtFileCompleted = True
 
 def video_file_function():
-    while True:
-        while (crashDetected == False):
-            if (fileNameUptoDate == True):
+    while crashDetected == False & videoFileCompleted == False:
+            if fileNameUptoDate:
                 camera.start_recording(videoFileName)
-                videoRecordingInProgress = True
                 print("Started recording video file: " + videoFileName)
                 sleep(30)
                 break
-            if videoRecordingInProgress:
-                camera.stop_recording()
-                videoRecordingInProgress = False
-                print("Stopped recording video file: " + videoFileName)
-                videoFileCompleted = True
+            camera.stop_recording()
+            videoRecordingInProgress = False
+            print("Stopped recording video file: " + videoFileName)
+            videoFileCompleted = True
 
             
   
@@ -58,6 +55,7 @@ def file_management():
         if (fileNameUptoDate == False):
             FM.update_fileName()
             fileNameUptoDate = True
+            videoFileCompleted = False
         if (videoFileCompleted == True & txtFileCompleted == True):
             fileNameUptoDate = False
 
@@ -74,14 +72,14 @@ for i in range(15):
 
 FM.update_fileName() 
 if __name__ == '__main__':
+    FMProcess = Process(target = file_management)
+    FMProcess.start()
+    FMProcess.join()
     videoProcess = Process(target = video_file_function)
     txtFileProcess = Process(target = txt_file_function)
-    FMProcess = Process(target = file_management)
     videoProcess.start()
     videoProcess.join()
     txtFileProcess.start()
     txtFileProcess.join()
-    FMProcess.start()
-    FMProcess.join()
 
 
