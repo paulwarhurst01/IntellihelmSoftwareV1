@@ -30,7 +30,7 @@ videoRecordingInProgress = False
 #def check_fta_full(): 
 
 def txt_file_function():
-    global txtFileCompleted
+    global txtFileCompleted, fileNameUptoDate
     while True: 
         if fileNameUptoDate:
             TFF.create(txtFileName)
@@ -53,11 +53,13 @@ def video_file_function():
             
   
 def file_management():
+    global videoFileCompleted, fileNameUptoDate, txtFileCompleted
     while True:
         if (fileNameUptoDate == False):
             FM.update_fileName()
             fileNameUptoDate = True
             videoFileCompleted = False
+            txtFileCompleted = False
         if (videoFileCompleted == True & txtFileCompleted == True):
             fileNameUptoDate = False
 
@@ -71,8 +73,7 @@ for i in range(15):
 ###########################################################################
 
 #main
-
-FM.update_fileName() 
+ 
 if __name__ == '__main__':
     FMProcess = Process(target = file_management)
     FMProcess.start()
