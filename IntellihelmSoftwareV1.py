@@ -21,7 +21,7 @@ fileInfo = FM.file_date_time_info()
 txtFileCompleted = False
 videoFileCompleted = False
 logUptoDate = False
-fileNameUptoDate = not(txtFileCompleted & videoFilevideoFileCompleted)
+fileNameUptoDate = not(txtFileCompleted & videoFileCompleted)
 crashDetected = False
 
 #def load_log():

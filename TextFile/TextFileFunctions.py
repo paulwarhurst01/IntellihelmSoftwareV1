@@ -1,4 +1,5 @@
 from time import sleep
+from FileManagement import DateTimeFunctions as DTF
 
 def create(txtFileName: str):
     """Creates a txt file with filename and format: Date    Time    GPS Data    Speed"""

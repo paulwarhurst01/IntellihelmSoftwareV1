@@ -14,9 +14,9 @@ def get_txt_fileName():                                               # Returns 
     return fileName + ".txt"
 
 def get_video_fileName():                                             # Returns the video file name with . extension
-    return fileName + "hxxx"
+    return fileName + "h264"
 
-def delete_file(fileName:str):                                        # Uses os.remove to delete file
+def delete_file(fileName: str):                                        # Uses os.remove to delete file
     remove(fileName)
 
 def update_fileName():                                                # Updates the fileName
