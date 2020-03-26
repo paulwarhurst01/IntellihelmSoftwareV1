@@ -21,7 +21,7 @@ fileInfo = FM.file_date_time_info()
 txtFileCompleted = False
 videoFileCompleted = False
 logUptoDate = False
-fileNameUptoDate = not(txtFileCompleted & videoFileCompleted)
+fileNameUptoDate = False
 crashDetected = False
 
 #def load_log():
@@ -37,21 +37,28 @@ def txt_file_function():
 
 def video_file_function():
     while True:
-        while fileNameUptoDate & (crashDetected == False):
-            camera.start_recording(videoFileName)
-            print("Started recording video file: " + videoFileName)
-            sleep(30)
-            break 
-        camera.stop_recording()
-        print("Stopped recording video file: " + videoFileName)
-        videoFileCompleted = True
+        while (crashDetected == False):
+            if (fileNameUptoDate == True):
+                camera.start_recording(videoFileName)
+                videoRecordingInProgress = True
+                print("Started recording video file: " + videoFileName)
+                sleep(30)
+                break
+            if videoRecordingInProgress:
+                camera.stop_recording()
+                videoRecordingInProgress = False
+                print("Stopped recording video file: " + videoFileName)
+                videoFileCompleted = True
 
             
   
 def file_management():
-    if (fileNameUptoDate == False):
-        FM.update_fileName()
-        fileNameUptoDate = True
+    while True:
+        if (fileNameUptoDate == False):
+            FM.update_fileName()
+            fileNameUptoDate = True
+        if (videoFileCompleted == True & txtFileCompleted == True):
+            fileNameUptoDate = False
 
 for i in range(15):
     print(FTA.current_snippet_video())
