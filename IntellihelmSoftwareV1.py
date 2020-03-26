@@ -23,6 +23,7 @@ videoFileCompleted = False
 logUptoDate = False
 fileNameUptoDate = False
 crashDetected = False
+videoRecordingInProgress = False
 
 #def load_log():
 
