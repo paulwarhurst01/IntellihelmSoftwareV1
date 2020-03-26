@@ -49,8 +49,9 @@ def video_file_function():
             
   
 def file_management():
-   
-
+    if (fileNameUptoDate == False):
+        FM.update_fileName()
+        fileNameUptoDate = True
 
 for i in range(15):
     print(FTA.current_snippet_video())
