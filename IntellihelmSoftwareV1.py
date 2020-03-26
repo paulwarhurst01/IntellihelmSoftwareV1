@@ -30,6 +30,7 @@ videoRecordingInProgress = False
 #def check_fta_full(): 
 
 def txt_file_function():
+    global txtFileCompleted
     while True: 
         if fileNameUptoDate:
             TFF.create(txtFileName)
@@ -37,6 +38,7 @@ def txt_file_function():
             txtFileCompleted = True
 
 def video_file_function():
+    global videoFileCompleted, videoRecordingInProgress
     while crashDetected == False & videoFileCompleted == False:
             if fileNameUptoDate:
                 camera.start_recording(videoFileName)
