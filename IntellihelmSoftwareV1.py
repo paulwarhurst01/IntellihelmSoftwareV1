@@ -1,6 +1,7 @@
 # 3rd Party Libraries/Modules/Classes
 from multiprocessing import Process
-from picamera import PiCamera
+from time import sleep
+#from picamera import PiCamera
 
 # Intellihelm Modules and Classes
 from FileManagement import FileManager as FM
@@ -10,7 +11,7 @@ from FileManagement import DateTimeFunctions as DTF
 from TextFile import TextFileFunctions as TFF
 
 # Camera 
-camera = PiCamera()
+#camera = PiCamera()
 
 # Variables
 txtFileName = FM.get_txt_fileName()
@@ -30,38 +31,40 @@ videoRecordingInProgress = False
 #def check_fta_full(): 
 
 def txt_file_function():
-    global txtFileCompleted, fileNameUptoDate
-    while True: 
-        if fileNameUptoDate:
-            TFF.create(txtFileName)
-            TFF.propogate_file(txtFileName)
-            txtFileCompleted = True
+    global txtFileCompleted
+    while crashDetected == False:
+        print("txt_file_function called")
+        TFF.create(txtFileName)
+        print("txt file created: " + txtFileName)
+        TFF.propogate_file(txtFileName)
+        print("txt file propogated: " + txtFileName)
+        txtFileCompleted = True
 
 def video_file_function():
     global videoFileCompleted, videoRecordingInProgress
-    while crashDetected == False & videoFileCompleted == False:
-            if fileNameUptoDate:
-                camera.start_recording(videoFileName)
-                print("Started recording video file: " + videoFileName)
-                sleep(30)
-                break
-            camera.stop_recording()
+    while crashDetected == False & videoFileCompleted == False & fileNameUptoDate:
+            #camera.start_recording(videoFileName)
+            videoRecordingInProgress = True
+            print("Started recording video file: " + videoFileName)
+            print(str(fileNameUptoDate))
+            sleep(3)
+            #camera.stop_recording()
             videoRecordingInProgress = False
             print("Stopped recording video file: " + videoFileName)
             videoFileCompleted = True
+    while crashDetected: 
+        print("crash detected")
+        break
 
             
   
 def file_management():
     global videoFileCompleted, fileNameUptoDate, txtFileCompleted
-    while True:
-        if (fileNameUptoDate == False):
+    while fileNameUptoDate == False:
             FM.update_fileName()
             fileNameUptoDate = True
             videoFileCompleted = False
             txtFileCompleted = False
-        if (videoFileCompleted == True & txtFileCompleted == True):
-            fileNameUptoDate = False
 
 for i in range(15):
     print(FTA.current_snippet_video())
@@ -75,14 +78,12 @@ for i in range(15):
 #main
  
 if __name__ == '__main__':
-    FMProcess = Process(target = file_management)
-    FMProcess.start()
-    FMProcess.join()
+    #FMProcess = Process(target = file_management)
+    #FMProcess.start()
+    #FMProcess.join()
     videoProcess = Process(target = video_file_function)
     txtFileProcess = Process(target = txt_file_function)
     videoProcess.start()
-    videoProcess.join()
     txtFileProcess.start()
-    txtFileProcess.join()
 
 

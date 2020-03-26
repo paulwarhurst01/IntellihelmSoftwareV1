@@ -11,9 +11,9 @@ def create(txtFileName: str):
 
 def propogate_file(txtFile: str):
     f = open(txtFile, "a")
-    for i in range(31):
-        info = DTF.get_date_and_time(separated = True)
-        gpsData = return_GPS_data()
+    for i in range(4):
+        info = DTF.get_date_and_time(True)
+        #gpsData = return_GPS_data()
         f.write(info + "     GPS Data\n")
         sleep(1)
     f.close
