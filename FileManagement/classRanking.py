@@ -16,3 +16,4 @@ class Ranking(object):
             self.oldest = 0                                     # or
         else:                                                   # iterates by one
             self.oldest = self.oldest + 1
+        print("Ranking Updated")
