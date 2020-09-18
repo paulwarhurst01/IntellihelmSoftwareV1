@@ -10,7 +10,7 @@ def file_date_time_info():                                            # Date and
     return DTF.get_date_and_time(False)
 
 def get_txt_fileName():                                               # Returns the txtFileName with .txt 
-    return fileName + ".txt"
+    return fileName + ".txt "
 
 def get_video_fileName():                                             # Returns the video file name with . extension
     return fileName + "hxxx"
