@@ -1,8 +1,9 @@
 from . import DateTimeFunctions as DTF
 from os import remove
 from .classSnippet import Snippet
+import shutil 
 
-# Propogate a tracking array 
+# Propogate a tracking array
 
 fileName = DTF.get_date_and_time(False)
 
@@ -13,12 +14,14 @@ def get_txt_fileName():                                               # Returns 
     return fileName + ".txt "
 
 def get_video_fileName():                                             # Returns the video file name with . extension
-    return fileName + "hxxx"
+    return fileName + "h264"
 
-def delete_file(fileName:str):                                        # Uses os.remove to delete file
+def delete_file(fileName: str):                                        # Uses os.remove to delete file
     remove(fileName)
 
 def update_fileName():                                                # Updates the fileName
     fileName = DTF.get_date_and_time(False)
 
-while 
+#def copy_snippet(fileName: str):
+#    toLocation = ""
+#    shutil.copy
